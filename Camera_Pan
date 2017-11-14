@@ -1,0 +1,43 @@
+using UnityEngine;
+using System.Collections;
+
+public class NewBehaviourScript: MonoBehaviour {
+public float speed = 1.8f;
+public float rotSpeed = 1.2f;
+public boolean mousePressed = false;
+public RigidBody rb;
+public float LeftRight = 0.0f;
+public float UpDown = 0.0f;
+
+
+void Setup() {
+rb = GetComponent<RidigBody>();
+
+}
+
+void Update() {
+if(Input.GetMouseButtonDown(0)) {
+mousePressed = true;
+}
+if(Input.GetMouseButtonUp(0)) {
+mousePressed = false;
+}
+
+float translate = Input.GetAxis("Vertical") * speed;
+float strafe = Input.GetAxis("Horizontal") * speed;
+
+transform.Translate(translate, 0, strafe);
+
+if(mousePressed) {
+onMousePress();
+}
+}
+
+void onMousePress() {
+LeftRight += Input.GetAxis("Mouse X") * rotSpeed;
+UpDown += Input.GetAxis("Mouse Y") * rotSpeed;
+
+transform.eulerAngles = new Vector3(UpDown, -LeftRight, 0.0);
+
+}
+}
